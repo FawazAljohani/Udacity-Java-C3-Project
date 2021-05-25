@@ -9,9 +9,7 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    // find a list of employee with matching skills and date from Employee table:
-//    List<Employee> getAllBySkillsIn(Set<EmployeeSkill> skills);
 
-    // find a list of employee with matching available day of the week:
+    // Find all employees with schedules that have the given day
     List<Employee> findAllByDaysAvailableContaining(DayOfWeek day);
 }

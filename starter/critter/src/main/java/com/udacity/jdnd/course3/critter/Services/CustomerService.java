@@ -23,11 +23,8 @@ public class CustomerService {
     @Autowired
     private PetRepository petRepository;
 
-    // save new customer:
     public Customer save(Customer newCustomer, List<Long> petIds) {
 
-        // iterate through petIDs, get pet by Id
-        // add each pet to new customer
         List<Pet> pets = new ArrayList<>();
 
         if (petIds != null) {
@@ -35,21 +32,17 @@ public class CustomerService {
         }
         newCustomer.setPets(pets);
 
-        // save new customer to Customer db:
         return customerRepository.save(newCustomer);
     }
 
-    // find all customers:
     public List<Customer> findAllCustomer() {
         return customerRepository.findAll();
     }
 
-    // find owner by pet ID:
     public Customer findOwnerByPetId(Long petId) {
+
         Pet pet = petRepository.getOne(petId);
 
-        Customer owner = pet.getOwner();
-
-        return owner;
+        return pet.getOwner();
     }
 }

@@ -7,15 +7,11 @@ import java.util.Set;
 @Entity
 public class Employee extends User {
 
-    // Use @ElementCollection to denote association between Entity and Enums
-    // These enums will be stored in separate table, along with id of Entity where they're contained
 
-    // joined table of Employee and EmployeeSkills enum:
     @ElementCollection
     @JoinTable(name="employee_skills")
     private Set<EmployeeSkill> skills;
 
-    // join table of Employee and DayOfWeek enum
     @ElementCollection
     @JoinTable(name="employee_availability")
     private Set<DayOfWeek> daysAvailable;

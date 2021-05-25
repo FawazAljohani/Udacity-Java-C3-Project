@@ -33,25 +33,20 @@ public class UserController {
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
 
-        // initialize new customer:
         Customer customer = new Customer();
         customer.setName(customerDTO.getName());
         customer.setPhoneNumber(customerDTO.getPhoneNumber());
 
-        // retrieve petIds from Customer DTO
-        // set it to new customer:
+
         List<Long> petIds = customerDTO.getPetIds();
 
-        // return converted DTO with customer and petIDs:
         return convertToDTO(customerService.save(customer, petIds));
     }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers() {
-        // find all customers using Service layer:
         List<Customer> customers = customerService.findAllCustomer();
 
-        // return as a List of Customer DTO:
         return customers.stream().map(this::convertToDTO).collect(toList());
     }
 
@@ -60,32 +55,25 @@ public class UserController {
         return convertToDTO(customerService.findOwnerByPetId(petId));
     }
 
-    // utility function to convert Customer to CustomerDTO:
     public CustomerDTO convertToDTO(Customer customer) {
 
-        // copy properties of Customer to CustomerDTO:
-        CustomerDTO customerDto = new CustomerDTO();
-        BeanUtils.copyProperties(customer, customerDto);
+        CustomerDTO customerDTO = new CustomerDTO();
+        BeanUtils.copyProperties(customer, customerDTO);
 
-        // get petIds from Customer, then set to Customer DTO's petIds:
         List<Long> petIds = customer.getPets().stream().map(Pet::getId).collect(toList());
-        customerDto.setPetIds(petIds);
+        customerDTO.setPetIds(petIds);
 
-        // return customer DTO:
-        return customerDto;
+        return customerDTO;
     }
 
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
 
-        // initialize new Employee:
-        // set each properties of Employee using Employee DTO:
         Employee employee = new Employee();
         employee.setName(employeeDTO.getName());
         employee.setDaysAvailable(employeeDTO.getDaysAvailable());
         employee.setSkills(employeeDTO.getSkills());
 
-        // return converted Employee DTO:
         return convertToDTO(employeeService.save(employee));
     }
 
@@ -101,16 +89,13 @@ public class UserController {
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        // find all employees with available skills and date inquired:
         List<Employee> employees = employeeService.findEmployeesWithSkillsAndDate(employeeDTO.getSkills(), employeeDTO.getDate());
 
         return employees.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    // utility function to convert Employee to Employee DTO:
     public EmployeeDTO convertToDTO(Employee employee) {
 
-        // initialize Employee:
         EmployeeDTO employeeDto = new EmployeeDTO();
         BeanUtils.copyProperties(employee, employeeDto);
 

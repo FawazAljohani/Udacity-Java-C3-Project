@@ -13,7 +13,7 @@ public class Pet {
 
     private PetType type;
 
-    @Nationalized // similar to UTF-8
+    @Nationalized
     private String name;
 
     private LocalDate birthDate;
@@ -21,9 +21,8 @@ public class Pet {
     @Column(nullable = true)
     private String notes;
 
-    // Pet and Customer has M:1 relationship:
-    @ManyToOne(fetch=FetchType.EAGER) // many pets can belong to 1 owner
-    @JoinColumn(name="customer_id", nullable=false) // map the joined column
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="customer_id", nullable=false)
     private Customer customer;
 
     public Pet () {}

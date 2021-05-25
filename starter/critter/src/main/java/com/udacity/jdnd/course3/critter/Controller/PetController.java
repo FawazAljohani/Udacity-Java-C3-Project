@@ -25,29 +25,26 @@ public class PetController {
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO ){
 
-        // initialize new Pet
-        // set properties of pet by retrieving values from PetDTO:
-        System.out.println("id is " + petDTO.getOwnerId());
+        // Create a new Pet
         Pet pet = new Pet();
         pet.setType(petDTO.getType());
         pet.setName(petDTO.getName());
         pet.setBirthDate(petDTO.getBirthDate());
         pet.setNotes(petDTO.getNotes());
 
-        return convertToDto(petService.save(pet, petDTO.getOwnerId()));
+        return convertToDTO(petService.save(pet, petDTO.getOwnerId()));
     }
 
     @GetMapping("/{petId}")
     public PetDTO getPet(@PathVariable long petId) {
-        return convertToDto(petService.findPetById(petId));
+        return convertToDTO(petService.findPetById(petId));
     }
 
     @GetMapping
     public List<PetDTO> getPets(){
         List<Pet> pets = petService.findAllPets();
 
-        // return a list of pets as dto:
-        return pets.stream().map(this::convertToDto).collect(Collectors.toList());
+        return pets.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     @GetMapping("/owner/{ownerId}")
@@ -55,11 +52,11 @@ public class PetController {
 
         List<Pet> pets = petService.findPetsByOwnerId(ownerId);
 
-        return pets.stream().map(this::convertToDto).collect(Collectors.toList());
+        return pets.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     // utility function to convert Pet to PetDTO:
-    public PetDTO convertToDto(Pet pet) {
+    public PetDTO convertToDTO(Pet pet) {
         PetDTO petDto = new PetDTO();
         BeanUtils.copyProperties(pet, petDto);
         petDto.setOwnerId(pet.getOwner().getId());

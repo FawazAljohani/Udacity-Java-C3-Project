@@ -16,12 +16,10 @@ public class Schedule {
 
     private LocalDate date;
 
-    // Many Employee Activities have Many Schedules
     @ElementCollection
     @JoinTable(name="schedule_activities")
     private Set<EmployeeSkill> activities;
 
-    // Many Employees have Many Schedules
     @ManyToMany
     @JoinTable(
             name="schedule_employee",
@@ -30,7 +28,6 @@ public class Schedule {
     )
     private List<Employee> employees;
 
-    // Many Pets have Many Schedules
     @ManyToMany
     @JoinTable(
             name="schedule_pet",

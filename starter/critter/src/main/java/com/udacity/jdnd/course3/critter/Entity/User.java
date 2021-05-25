@@ -11,6 +11,7 @@ import javax.persistence.*;
  * supports polymorphic queries by UNIONing subclass tables
  * */
 @Entity
+// to connect User and Eployee type to a single client view with parent id
 @Inheritance(strategy= InheritanceType.JOINED)
 @Table(name="user")
 public class User {

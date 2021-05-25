@@ -10,7 +10,6 @@ public class Customer extends User {
     @Column(name="phone_number")
     private String phoneNumber;
 
-    // Use 1:M between Customer and Pets:
     @OneToMany(mappedBy = "customer", fetch= FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Pet> pets = new ArrayList<>();
 
