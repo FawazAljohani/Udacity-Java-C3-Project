@@ -24,8 +24,8 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public Employee findEmployeeById(Long employeeId) {
-        return employeeRepository.getOne(employeeId);
+    public Employee findEmployeeById(Long id) {
+        return employeeRepository.getOne(id);
     }
 
     public void setDayAvailableByEmployeeId(Set<DayOfWeek> daysAvailable, Long employeeId) {
@@ -33,6 +33,10 @@ public class EmployeeService {
         employee.setDaysAvailable(daysAvailable);
 
         employeeRepository.save(employee);
+    }
+
+    public List<Employee> findAllEmployees(){
+        return employeeRepository.findAll();
     }
 
     public List<Employee> findEmployeesWithSkillsAndDate(Set<EmployeeSkill> skills, LocalDate date) {

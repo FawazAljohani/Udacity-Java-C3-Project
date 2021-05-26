@@ -7,6 +7,9 @@ import java.util.Set;
 @Entity
 public class Employee extends User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ElementCollection
     @JoinTable(name="employee_skills")
@@ -18,9 +21,18 @@ public class Employee extends User {
 
     public Employee() {}
 
-    public Employee(Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable) {
+    public Employee(Long id,Set<EmployeeSkill> skills, Set<DayOfWeek> daysAvailable) {
+        this.id = id;
         this.skills = skills;
         this.daysAvailable = daysAvailable;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Set<EmployeeSkill> getSkills() {

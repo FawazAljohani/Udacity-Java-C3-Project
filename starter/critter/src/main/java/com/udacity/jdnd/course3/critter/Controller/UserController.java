@@ -50,6 +50,13 @@ public class UserController {
         return customers.stream().map(this::convertToDTO).collect(toList());
     }
 
+    @GetMapping("/customer/{customerId}")
+    public CustomerDTO getCustomer(@PathVariable Long customerId) {
+        Customer customer = customerService.findCustomerById(customerId);
+        return convertToDTO(customer);
+
+    }
+
     @GetMapping("/customer/pet/{petId}")
     public CustomerDTO getOwnerByPet(@PathVariable long petId){
         return convertToDTO(customerService.findOwnerByPetId(petId));
@@ -77,9 +84,17 @@ public class UserController {
         return convertToDTO(employeeService.save(employee));
     }
 
+    @GetMapping("/employee")
+    public List<EmployeeDTO> getAllEmployees() {
+        List<Employee> employees = employeeService.findAllEmployees();
+
+        return employees.stream().map(this::convertToDTO).collect(toList());
+    }
+
     @PostMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
-        return convertToDTO(employeeService.findEmployeeById(employeeId));
+        Employee employee = employeeService.findEmployeeById(employeeId);
+        return convertToDTO(employee);
     }
 
     @PutMapping("/employee/{employeeId}")

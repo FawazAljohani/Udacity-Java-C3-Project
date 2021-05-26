@@ -7,6 +7,10 @@ import java.util.List;
 @Entity
 public class Customer extends User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name="phone_number")
     private String phoneNumber;
 
@@ -15,8 +19,18 @@ public class Customer extends User {
 
     public Customer() {}
 
-    public Customer( String phoneNumber, String notes) {
+    public Customer(Long id,String phoneNumber, String notes) {
+
+        this.id = id;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPhoneNumber() {
